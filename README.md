@@ -1,0 +1,2 @@
+# botmhstr
+.js
