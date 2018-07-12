@@ -934,7 +934,6 @@ client.on('message',function(message) {
 Server name: __${guild.name}__
 Server owner: __${guild.owner}__**`)
 });
-var data = JSON.parse(fs.readFileSync('data.json','utf8'))
 client.on('guildMemberRemove', (u) => {
     u.guild.fetchAuditLogs().then( s => {
         var ss = s.entries.first();
