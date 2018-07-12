@@ -137,7 +137,7 @@ client.on('message', message => {
     }
     })
                client.on('message', message => {
-                    var prefix = "#";
+                    var prefix = "!";
 
            if (message.content.startsWith(prefix + "id")) {
                      if(!message.channel.guild) return message.reply(`هذا الأمر فقط ل السيرفرات ❌`);
