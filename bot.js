@@ -211,7 +211,8 @@ message.channel.send({embed});
 
 }
 
-});ient.on("message", message => {
+});
+cient.on("message", message => {
     var prefix = "!";
     const command = message.content.split(" ")[0];
 
