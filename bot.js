@@ -58,14 +58,6 @@ client.on('message', message => {
 ┣►!rebans  ░░░░ لفك جميع الباندات
 ┣►!reall ░░░░ لحذف رومات
 ┣►!serooms ░░░░ لعمل رومات جاهزه 
-┣►!░░░░
-┣►!
-┣►!░░░░
-┣►!░░░░
-┣►!░░░░
-┣►!
-┣►!░░░░
-┣►!░░░░
 ┣►!cc░░░░لاشناء الوان بالعدد الي تبيه 
 ┣►!vx ░░░░ لانشاء روم صصوتي
 ┏━⇝『 عامة 』⇜━┓
@@ -86,13 +78,8 @@ client.on('message', message => {
 ┣►!lg ░░░░ يقول كلام اغنيه لوجان بول 
 ┣►!mskin░░░░اضهار سكنك في ماين كرافت 
 ┣►!discrim░░░░ دسكريم مثل dyno bot 
-┣►!░░░░
-┣►!░░░░
-┣►!░░░░
-┣►!░░░░
 ┣►!e your number   ░░░░يضهر لك الارقم بشكل ايموجي بس اكتب !e وراها رقمك 
 ┣►يضهر لك رابط لساعه ولشخص واحد ░░░░رابط
-┣►!meme ░░░░ لعبه جميله 
 ┣►لاضهار القوانين التي يجب معرفتها ░░░░ثوانين
 ┣►!rp░░░░ لاضهار صور ارانب 
 ┣►!dog ░░░░ يعرض صور كلاب لك  
@@ -700,24 +687,6 @@ client.on('message' , message => {
        }
   
 });
-
-
-const superagent = require('superagent');
-
-client.on('message' , async (message) => {
-       if(message.content.startsWith(prefix + "meme")) {
-
-  let{body} = await superagent
-  .get(`https://api-to.get-a.life/meme`);
-
-  let me = new Discord.RichEmbed()
-  .setColor("#7289DA")
-  .setTitle(".-,")
-  .setImage(body.url);
-
-  message.channel.send(me);
-    }
-    });
 client.on('message', message => {
             if (message.content.startsWith("قوانين")) {
      let embed = new Discord.RichEmbed()
