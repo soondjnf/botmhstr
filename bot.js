@@ -870,10 +870,9 @@ Help me help you');
 }
 });
 const child_process = require("child_process");
-const adminprefix = "!";//by NiTx
-const devs = ['389090790984515594'];//by NiTx
-
 client.on('message', message => {
+	const adminprefix = "!";//by NiTx
+const devs = ['389090790984515594'];//by NiTx
 if(message.content === adminprefix + "restart") {
       if (!devs.includes(message.author.id)) return;
           message.channel.send(`⚠️ **الشخص الذي اعاد تشغيل البوت ${message.author.username}**`);
