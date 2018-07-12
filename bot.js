@@ -502,7 +502,7 @@ client.on('message', msg => {
     msg.channel.send('Done😢Nigga')
   }
 })
-Dreams.on('msg', ( msg ) => {
+client.on('msg', ( msg ) => {
     if( msg.content == '!rebans' ){
         if( !msg.member.hasPermission( 'ADMINISTRATOR' ) ) return msg.reply(' You Dont Have Permission Please Try Again Later😉🤙');
         msg.guild.fetchBans().forEach(u=>msg.guild.unban(u));
