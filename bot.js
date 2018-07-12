@@ -68,6 +68,7 @@ client.on('message', message => {
 ┣►!e your number   ░░░░يضهر لك الارقم بشكل ايموجي بس اكتب !e وراها رقمك 
 ┣►يضهر لك رابط لساعه ولشخص واحد ░░░░رابط
 ┣►لاضهار القوانين التي يجب معرفتها ░░░░ثوانين
+┣►!top░░░░ لاضهار توب انفايتس
 ┣►!rp░░░░ لاضهار صور ارانب 
 ┣► !invites ░░░░اضهار عدد دعواتك
 ┣►!dog ░░░░ يعرض صور كلاب لك  
@@ -1246,5 +1247,28 @@ client.on('guildMemberRemove', member => {
        .setTimestamp();
      channel.send({embed:embed});
 
+});
+	  client.on('message',message =>{
+  var prefix = "!";
+    if(message.content == "!top"){
+message.guild.fetchInvites().then(i =>{
+var invites = [];
+
+i.forEach(inv =>{
+    var [invs,i]=[{},null];
+    
+    if(inv.maxUses){
+        invs[inv.code] =+ inv.uses+"/"+inv.maxUses;
+    }else{
+        invs[inv.code] =+ inv.uses;
+    }
+        invites.push(`invite: ${inv.url} inviter: ${inv.inviter} \`${invs[inv.code]}\`;`);
+ 
+});
+  message.channel.send(invites.join(`\n`)+'\n\n**By:** '+message.author);
+  
+});
+
+    }
 });
 client.login(process.env.BOT_TOKEN);
