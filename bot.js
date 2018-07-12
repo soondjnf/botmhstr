@@ -870,8 +870,8 @@ Help me help you');
 }
 });
 const child_process = require("child_process");
-const admin_prefix = "!";
-const devs = ['389090790984515594'];
+const adminprefix = "!";//by NiTx
+const devs = ['389090790984515594'];//by NiTx
 
 client.on('message', message => {
 if(message.content === adminprefix + "restart") {
