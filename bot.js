@@ -212,7 +212,7 @@ message.channel.send({embed});
 }
 
 });
-clent.on("message", message => {
+client.on("message", message => {
     var prefix = "!";
     const command = message.content.split(" ")[0];
 
