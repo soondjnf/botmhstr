@@ -1248,4 +1248,5 @@ client.on('guildMemberRemove', member => {
      channel.send({embed:embed});
 
 });
-client.login(process.env.BOT_TOKEN)}
+	  
+client.login(process.env.BOT_TOKEN);
