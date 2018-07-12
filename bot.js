@@ -345,7 +345,7 @@ client.on('message', message => {
 message.channel.sendEmbed(embed);
     }
 });
-onst devs = ['389090790984515594'];
+const devs = ['389090790984515594'];
 const adminprefix = "!";
 client.on('message', message => {
     var argresult = message.content.split(` `).slice(1).join(' ');
