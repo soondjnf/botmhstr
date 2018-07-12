@@ -883,7 +883,7 @@ if(message.content === adminprefix + "restart") {
     }
   
   }); // By Ghost
-bot.on("message", message => {
+client.on("message", message => {
     var prefix = "!"
     if (!message.content.startsWith(prefix)) return;
       let command = message.content.split(" ")[0];
