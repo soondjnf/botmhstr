@@ -160,7 +160,7 @@ client.on('message', message => {
     }
     })
 
-clclient.on('message', message => {
+client.on('message', message => {
 	const prefix = '+'
 var args = message.content.split(" ").slice(1);    
 if(message.content.startsWith(prefix + 'id')) {
