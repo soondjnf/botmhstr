@@ -53,40 +53,9 @@ client.on('message', msg => {
 }
 });
 
-
-client.on("message", message => {
-	var prefix = "!";
- if (message.content === "!help") {
-  const embed = new Discord.RichEmbed()  
-      .setColor("#000000") 
-      .setDescription(`
-	  
-	         Please Chose: 
-
-			 
-${prefix}help-public ⇏ اوامر عامة
-
-${prefix}help-admin ⇏ اوامر ادارة السيرفر
-			 
-${prefix}help-games ⇏ اوامر الالعاب
-
-${prefix}help-music ⇏ اوامر الموسيقى
-
-	  `)
-   message.channel.sendEmbed(embed)
-    
-   }
-   }); 
-  
-
-client.on("message", message => {
-	var prefix = "!";
- if (message.content === "!help-public") {
-	 message.channel.send('**تم ارسالك في الخاص** :mailbox_with_mail: ');
-  const embed = new Discord.RichEmbed() 
-      .setColor("#000000")
-      .setDescription(`
-			  اوامر عامة
+client.on('message', message => {
+if (message.content.startsWith(prefix + 'PHelp')) { /// This is The DMS Code Send The Help In DMS // Code By NotGucci
+    let pages = [`
 ❖!allbots ~ لعرض جميع البوتات الي بالسيرفر
 ❖!server ~يعرض لك معلومات عن السيرفر
 ❖!bot ~ يعرض لك كل معلومات البوت
@@ -106,7 +75,7 @@ client.on("message", message => {
 ❖!emojilist ~ يعرض لك كل الايموجيات الي بالسيرفر
 ❖say ~ يكرر الكلام الي تكتبو
 ❖!image ~ صورة السيرفر
-❖!members ~ يعرض لك عدد كل حالات الاشخاص وعدد البوتات وعدد الاشخاص
+❖!members ~ ��عرض لك عدد كل حالات الاشخاص وعدد البوتات وعدد الاشخاص
 ❖!id ~ معلومات عنك
 ❖!bans ~ عدد الاشخاص المبندة 
 ❖!avatar ~ صورتك او صورة الي تمنشنو
@@ -115,20 +84,10 @@ client.on("message", message => {
 ❖!inv ~ لدعوة البوت الى سيرفرك
 ❖!support ~ سيرفر الدعم
 ❖!contact ~ ارسال اقتراح او لمراسلة صاحب البوت
-`)
-   message.author.sendEmbed(embed)
-    
-   }
-   }); 
-   
-   client.on("message", message => {
-	var prefix = "!";
- if (message.content === "!help-admin") {
-	  message.channel.send('**تم ارسالك في الخاص** :mailbox_with_mail: ');
-  const embed = new Discord.RichEmbed() 
-      .setColor("#000000")
-      .setDescription(`
-	      اوامر ادارة السيرفر
+Click On ▶ To Go Administor Side
+  `
+,`
+اوامر ادارة السيرفر
 ❖!move @user ~  لسحب الشخص الى روومك
 ❖!bc ~ رسالة جماعية الى كل اعضاء السيرفر
 ❖!role @user <rank> ~ لأعطاء رتبة لعضو معين
@@ -152,45 +111,9 @@ client.on("message", message => {
 ❖!cv <name> ~ انشاء رووم فويس
 ❖!delet <name> ~ مسح الشات او الرووم فويس
 ❖!ccolors <number> ~ ينشا لك الوان مع كم الوان تبي
-`)
-   message.author.sendEmbed(embed)
-    
-   }
-   }); 
-
-   client.on("message", message => {
-	var prefix = "!";
- if (message.content === "!help-games") {
-	  message.channel.send('**تم ارسالك في الخاص** :mailbox_with_mail: ');
-  const embed = new Discord.RichEmbed() 
-      .setColor("#000000")
-      .setDescription(`
-          اوامر الالعاب
-❖!rps ~ حجر ورقة مقص
-❖!speed ~ اسرع كتابة
-❖!quas ~ اسئلة عامة
-❖!نكت ~ نكت 
-❖!لعبة فكك ~ فكك
-❖!عواصم عشوائيه~عواصم
-❖!لعبة كت تويت ~ كت تويت
-❖!roll <number> ~ قرعة
-❖!لو خيروك بطريقة حلوة ~ لو خيروك
-❖!لعبة مريم ~ مريم
-❖!فوائد ونصائح  ~ هل تعلم
-❖!يعطيك عقابات قاسية ~ عقاب   `)
-   message.author.sendEmbed(embed)
-    
-   }
-   }); 
-			  
-client.on("message", message => {
-	var prefix = "!";
- if (message.content === "!help-music") {
-	  message.channel.send('**تم ارسالك في الخاص** :mailbox_with_mail: ');
-  const embed = new Discord.RichEmbed() 
-      .setColor("#000000")
-      .setDescription(`
-	        اوامر الموسيقى 
+Click On ▶ To Go To Bot Info
+   `,`
+اوامر الموسيقى 
 ❖${prefix}play ~ لتشغيل أغنية برآبط أو بأسم
 ❖${prefix}skip ~ لتجآوز الأغنية الحآلية
 ❖${prefix}pause ~ إيقآف الأغنية مؤقتا
@@ -199,13 +122,48 @@ client.on("message", message => {
 ❖${prefix}stop ~ لإخرآج البوت من الروم
 ❖${prefix}np ~ لمعرفة الأغنية المشغلة حآليا
 ❖${prefix}queue ~ لمعرفة قآئمة التشغيل
+   `]
+    let page = 1;
 
- `)
-   message.author.sendEmbed(embed)
-    
-   }
-   }); 
+    let embed = new Discord.RichEmbed()
+    .setColor('RANDOM')
+    .setFooter(`Page ${page} of ${pages.length}`)
+    .setDescription(pages[page-1])
 
+    message.author.sendEmbed(embed).then(msg => {
+
+        msg.react('◀').then( r => {
+            msg.react('▶')
+
+
+        const backwardsFilter = (reaction, user) => reaction.emoji.name === '◀' && user.id === message.author.id;
+        const forwardsFilter = (reaction, user) => reaction.emoji.name === '▶' && user.id === message.author.id;
+
+
+        const backwards = msg.createReactionCollector(backwardsFilter, { time: 2000000});
+        const forwards = msg.createReactionCollector(forwardsFilter, { time: 2000000});
+
+
+
+        backwards.on('collect', r => {
+            if (page === 1) return;
+            page--;
+            embed.setDescription(pages[page-1]);
+            embed.setFooter(`Page ${page} of ${pages.length}`);
+            msg.edit(embed)
+        })
+        forwards.on('collect', r => {
+            if (page === pages.length) return;
+      
+      page++;
+            embed.setDescription(pages[page-1]);
+            embed.setFooter(`Page ${page} of ${pages.length}`);
+            msg.edit(embed)
+        })
+        })
+    })
+    }
+}); 
 client.on('guildCreate', guild => {
          const embed = new Discord.RichEmbed()
      .setColor("RED")
