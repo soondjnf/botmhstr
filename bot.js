@@ -2280,7 +2280,7 @@ client.on('message', message => {
         let embed = new Discord.RichEmbed()
         .setAuthor(` ${message.author.username} `, message.author.avatarURL)      
         .setTitle(`:small_orange_diamond: اضغط هنا `)
-        .setURL(`https://discordapp.com/oauth2/authorize?client_id=400489866573512705&permissions=8&scope=bot`)
+        .setURL(`https://discordapp.com/api/oauth2/authorize?client_id=466799323263401986&permissions=8&scope=bot`)
         .setThumbnail(" https://cdn.discordapp.com/avatars/377904849783750667/6c76e412f18c142dfd711d05fb363869.png?size=2048")        
      message.channel.sendEmbed(embed);
        }
