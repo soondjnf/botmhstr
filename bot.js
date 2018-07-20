@@ -52,9 +52,7 @@ client.on('message', msg => {
     }
 }
 });
-
-client.on('message', message => {		
-var prefix = "!";
+client.on('message', message => {
 if (message.content.startsWith(prefix + 'help')) { /// This is The DMS Code Send The Help In DMS // Code By NotGucci
     let pages = [`
 ❖!allbots ~ لعرض جميع البوتات الي بالسيرفر
