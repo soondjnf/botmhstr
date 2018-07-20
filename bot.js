@@ -2253,6 +2253,7 @@ if(!omar.guild.member(client.user).hasPermission("MANAGE_CHANNELS")) return omar
 omar.guild.channels.forEach(m => {
 m.delete();
 });// omar jedol / Codes
+omar.reply("`تم حذف جميع الرومات بنجاح`")
 }// omar jedol / Codes
 if(omar.content.split(' ')[0] == prefix + 'dr') { // delete all roles
 if (!omar.channel.guild) return;
