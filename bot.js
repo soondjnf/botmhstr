@@ -2438,9 +2438,11 @@ client.on("message", (message) => {
 });  
 
 
+
 const sWlc = {}
 const premium = ['463781827086254083', '', '', '']
 client.on('message', message => {
+var prefix = "#";
 if(message.channel.type === "dm") return;
 if(message.author.bot) return;
   if(!sWlc[message.guild.id]) sWlc[message.guild.id] = {
@@ -2482,7 +2484,7 @@ client.on("guildMemberAdd", member => {
       var Canvas = require('canvas')
       var jimp = require('jimp')
       
-      const w = ['./img/PicsArt_07-17-07.58.02 (1).png'];
+      const w = ['./model/PicsArt_07-17-07.58.02 (1).png'];
       
               let Image = Canvas.Image,
                   canvas = new Canvas(557, 241),
