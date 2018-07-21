@@ -26,7 +26,23 @@ const sql = require("sqlite");
 ,ti={}  
 ,spee={};
 
+client.on('ready', function(){
+    var ms = 10000 ;
+    var setGame = ['!help |!inv  ','server [${client.guilds.size}] ','[${client.users.size}] users ','ping [${Date.now() - message.createdTimestamp}] ','chanels [${client.channels.size}] '];
+    var i = -1;
+    var j = 0;
+    setInterval(function (){
+        if( i == -1 ){
+            j = 1;
+        }
+        if( i == (setGame.length)-1 ){
+            j = -1;
+        }
+        i = i+j;
+        client.user.setGame(setGame[i],`http://www.twitch.tv/D.JPEI`);
+    }, ms);
 
+});
 
 client.on('message', msg => {
 	var prefix = "!";
