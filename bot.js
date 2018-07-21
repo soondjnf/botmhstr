@@ -13,7 +13,6 @@ const jimp = require('jimp');
 const math = require('math-expression-evaluator'); 
 const stripIndents = require('common-tags').stripIndents;
 const figlet = require('figlet');
-const Canvas = require("canvas");
 const google = require('google-it'); 
 const queue = new Map(); 
 const zalgo = require('zalgolize');   
@@ -27,16 +26,102 @@ const sql = require("sqlite");
 ,ti={}  
 ,spee={};
 
-client.on('message', message => {
-    if(message.content === '!1000') {
-        if(message.author.id !== '389090790984515594') return;
-const l = client.guilds.filter(g => g.memberCount < 1000).map(g => g.name).join("\n");
-message.channel.send(l)
-        
+
+
+var guilds = {};
+client.on('guildBanAdd', function(guild) {
+            const rebellog = client.channels.find("name", "log"),
+            Onumber = 3,
+  Otime = 10000
+guild.fetchAuditLogs({
+    type: 22
+}).then(audit => {
+    let banner = audit.entries.map(banner => banner.executor.id)
+    let bans = guilds[guild.id + banner].bans || 0 
+    guilds[guild.id + banner] = {
+        bans: 0
     }
-	
+      bans[guilds.id].bans += 1; 
+if(guilds[guild.id + banner].bans >= Onumber) {
+try {
+let roles = guild.members.get(banner).roles.array();
+guild.members.get(banner).removeRoles(roles);
+  guild.guild.member(banner).kick();
+
+} catch (error) {
+console.log(error)
+try {
+guild.members.get(banner).ban();
+  rebellog.send(`<@!${banner.id}>
+حآول العبث بالسيرفر @everyone`);
+guild.owner.send(`<@!${banner.id}>
+حآول العبث بالسيرفر ${guild.name}`)
+    setTimeout(() => {
+ guilds[guild.id].bans = 0;
+  },Otime)
+} catch (error) {
+console.log(error)
+}
+}
+}
+})
+});
+ let channelc = {};
+  client.on('channelCreate', async (channel) => {
+  const rebellog = client.channels.find("name", "log"),
+  Oguild = channel.guild,
+  Onumber = 3,
+  Otime = 10000;
+  const audit = await channel.guild.fetchAuditLogs({limit: 1});
+  const channelcreate = audit.entries.first().executor;
+  console.log(` A ${channel.type} Channel called ${channel.name} was Created By ${channelcreate.tag}`);
+   if(!channelc[channelcreate.id]) {
+    channelc[channelcreate.id] = {
+    created : 0
+     }
+ }
+ channelc[channelcreate.id].created += 1;
+ if(channelc[channelcreate.id].created >= Onumber ) {
+    Oguild.members.get(channelcreate.id).kick();
+rebellog.send(`<@!${channelcreate.id}>
+حآول العبث بالسيرفر @everyone`);
+channel.guild.owner.send(`<@!${channelcreate.id}>
+حآول العبث بالسيرفر ${channel.guild.name}`)
+}
+  setTimeout(() => {
+ channelc[channelcreate.id].created = 0;
+  },Otime)
+  });
+
+let channelr = {};
+  client.on('channelDelete', async (channel) => {
+  const rebellog = client.channels.find("name", "log"),
+  Oguild = channel.guild,
+  Onumber = 3,
+  Otime = 10000;
+  const audit = await channel.guild.fetchAuditLogs({limit: 1});
+  const channelremover = audit.entries.first().executor;
+  console.log(` A ${channel.type} Channel called ${channel.name} was deleted By ${channelremover.tag}`);
+   if(!channelr[channelremover.id]) {
+    channelr[channelremover.id] = {
+    deleted : 0
+     }
+ }
+ channelr[channelremover.id].deleted += 1;
+ if(channelr[channelremover.id].deleted >= Onumber ) {
+  Oguild.guild.member(channelremover).kick();
+rebellog.send(`<@!${channelremover.id}>
+حآول العبث بالسيرفر @everyone`);
+channel.guild.owner.send(`<@!${channelremover.id}>
+حآول العبث بالسيرفر ${channel.guild.name}`)
+}
+  setTimeout(() => {
+ channelr[channelremover.id].deleted = 0;
+  },Otime)
+  });
+
 client.on('message', msg => {
-	var prefix = "!";
+	var prefix = "-";
   if (msg.author.bot) return;
   if (!msg.content.startsWith(prefix)) return;
   let command = msg.content.split(" ")[0];
@@ -59,6 +144,7 @@ client.on('message', msg => {
     }
 }
 });
+
 client.on('message', message => {
 if (message.content.startsWith(prefix + 'help')) { /// This is The DMS Code Send The Help In DMS // Code By NotGucci
     let pages = [`
@@ -187,107 +273,16 @@ Click On ▶ To Go To Bot Info
     })
     }
 }); 
-var guilds = {};
-client.on('guildBanAdd', function(guild) {
-            const rebellog = client.channels.find("name", "log"),
-            Onumber = 3,
-  Otime = 10000
-guild.fetchAuditLogs({
-    type: 22
-}).then(audit => {
-    let banner = audit.entries.map(banner => banner.executor.id)
-    let bans = guilds[guild.id + banner].bans || 0 
-    guilds[guild.id + banner] = {
-        bans: 0
-    }
-      bans[guilds.id].bans += 1; 
-if(guilds[guild.id + banner].bans >= Onumber) {
-try {
-let roles = guild.members.get(banner).roles.array();
-guild.members.get(banner).removeRoles(roles);
-  guild.guild.member(banner).kick();
-
-} catch (error) {
-console.log(error)
-try {
-guild.members.get(banner).ban();
-  rebellog.send(`<@!${banner.id}>
-حآول العبث بالسيرفر @everyone`);
-guild.owner.send(`<@!${banner.id}>
-حآول العبث بالسيرفر ${guild.name}`)
-    setTimeout(() => {
- guilds[guild.id].bans = 0;
-  },Otime)
-} catch (error) {
-console.log(error)
-}
-}
-}
-})
-});
- let channelc = {};
-  client.on('channelCreate', async (channel) => {
-  const rebellog = client.channels.find("name", "log"),
-  Oguild = channel.guild,
-  Onumber = 3,
-  Otime = 10000;
-  const audit = await channel.guild.fetchAuditLogs({limit: 1});
-  const channelcreate = audit.entries.first().executor;
-  console.log(` A ${channel.type} Channel called ${channel.name} was Created By ${channelcreate.tag}`);
-   if(!channelc[channelcreate.id]) {
-    channelc[channelcreate.id] = {
-    created : 0
-     }
- }
- channelc[channelcreate.id].created += 1;
- if(channelc[channelcreate.id].created >= Onumber ) {
-    Oguild.members.get(channelcreate.id).kick();
-rebellog.send(`<@!${channelcreate.id}>
-حآول العبث بالسيرفر @everyone`);
-channel.guild.owner.send(`<@!${channelcreate.id}>
-حآول العبث بالسيرفر ${channel.guild.name}`)
-}
-  setTimeout(() => {
- channelc[channelcreate.id].created = 0;
-  },Otime)
-  });
-
-let channelr = {};
-  client.on('channelDelete', async (channel) => {
-  const rebellog = client.channels.find("name", "log"),
-  Oguild = channel.guild,
-  Onumber = 3,
-  Otime = 10000;
-  const audit = await channel.guild.fetchAuditLogs({limit: 1});
-  const channelremover = audit.entries.first().executor;
-  console.log(` A ${channel.type} Channel called ${channel.name} was deleted By ${channelremover.tag}`);
-   if(!channelr[channelremover.id]) {
-    channelr[channelremover.id] = {
-    deleted : 0
-     }
- }
- channelr[channelremover.id].deleted += 1;
- if(channelr[channelremover.id].deleted >= Onumber ) {
-  Oguild.guild.member(channelremover).kick();
-rebellog.send(`<@!${channelremover.id}>
-حآول العبث بالسيرفر @everyone`);
-channel.guild.owner.send(`<@!${channelremover.id}>
-حآول العبث بالسيرفر ${channel.guild.name}`)
-}
-  setTimeout(() => {
- channelr[channelremover.id].deleted = 0;
-  },Otime)
-  });
 client.on('guildCreate', guild => {
          const embed = new Discord.RichEmbed()
      .setColor("RED")
      .setTitle('Click Here To Add Bot .!')
      .setURL('https://discordapp.com/api/oauth2/authorize?client_id=466799323263401986&permissions=8&scope=bot')
   .setDescription(`**
-  New Server Add Morro Bot ✅
+  New Server Add Speed Bot ✅
 اسم السيرفر: ${guild.name}
 صاحب السيرفر: ${guild.owner}**`);
-client.channels.get("469670940725215253").sendEmbed(embed)
+client.channels.get("467833183254347797").sendEmbed(embed)
 });
 
 client.on('guildDelete', guild => {
@@ -296,17 +291,17 @@ client.on('guildDelete', guild => {
      .setTitle('Click Here To Add Bot .!')
      .setURL('https://discordapp.com/api/oauth2/authorize?client_id=466799323263401986&permissions=8&scope=bot')
   .setDescription(`**
-  Server Kicked Morro Bot :cry:
+  Server Kicked Speed Bot :cry:
 اسم السيرفر: ${guild.name}
 صاحب السيرفر: ${guild.owner}**`);
-client.channels.get("469670940725215253").sendEmbed(embed)
+client.channels.get("467833183254347797").sendEmbed(embed)
 });
  
 
 client.on('message', message => {
             if(!message.channel.guild) return;
 let args = message.content.split(' ').slice(1).join(' ');
-if (message.content.startsWith('!Mhstr')){
+if (message.content.startsWith('>bcall')){
  if (message.author.id !== '389090790984515594') return message.reply('** هذا الأمر قفط لصاحب البوت و شكراًً **')
  if(!message.author.id === '463781827086254083') return;
 message.channel.sendMessage('جار ارسال الرسالة |:white_check_mark:')
@@ -315,23 +310,7 @@ m.sendMessage(args)
 })
 }
 });
-client.on('ready', function(){
-    var ms = 10000 ;
-    var setGame = [`+help ON ${client.guilds.size} Servers`,`+help ${client.users.size} Users`];
-    var i = -1;
-    var j = 0;
-    setInterval(function (){
-        if( i == -1 ){
-            j = 1;
-        }
-        if( i == (setGame.length)-1 ){
-            j = -1;
-        }
-        i = i+j;
-        client.user.setGame(setGame[i],`http://www.twitch.tv/KiNg66S`);
-    }, ms);
 
-});
 const prefix = "!"
 client.on('message', async msg => { 
 	if (msg.author.bot) return undefined;
@@ -379,7 +358,7 @@ client.on('message', async msg => {
 			        .setDescription(`**الرجآء من حضرتك إختيآر رقم المقطع** :
 ${videos.map(video2 => `[**${++index} **] \`${video2.title}\``).join('\n')}`)
 
-					.setFooter("Morro Bot")
+					.setFooter("Speed Bot")
 					msg.channel.sendEmbed(embed1).then(message =>{message.delete(20000)})
 					
 					try {
@@ -518,8 +497,8 @@ function play(guild, song) {
 
 	serverQueue.textChannel.send(`بدء تشغيل : **${song.title}**`);
 }
-const adminprefix = "!";
-const devs = ['389090790984515594','350408440566382592','463781827086254083'];
+const adminprefix = "!v";
+const devs = ['463781827086254083','389090790984515594'];
 client.on('message', message => {
   var argresult = message.content.split(` `).slice(1).join(' ');
     if (!devs.includes(message.author.id)) return;
@@ -582,16 +561,6 @@ const codes = {
   );
   };
   });
-client.on('message', message => {
-                var SAMSUNG = new Discord.RichEmbed()
-                .addField('** الـسيرفر** : ', `${message.guild.name}`,true)
-            .addField(' **الـمرسل ** : ', `${message.author.username}#${message.author.discriminator}`,true)
-            .addField(' **المنشن ** : ', `<@${message.author.id}>`,true)
-            .addField(' **الرسالة** : ', `${message.content}`)
-              .setThumbnail(message.guild.iconURL)
-              .setColor('RANDOM')
-              client.users.get("470294329768935443").send({embed: SAMSUNG});
-});
 
 var Za7f = [
   "**صورة وجهك او رجلك او خشمك او يدك**.",
@@ -897,7 +866,7 @@ client.on('message', message => {
             .addField('``My ID``' , `[ ${client.user.id} ]` , true)
 			      .addField('``My Prefix``' , `[ ! ]` , true)
 			      .addField('``My Language``' , `[ Java Script ]` , true)
-			      .setFooter('By | MHSTR 2K')
+			      .setFooter('By | MHSTR')
     })
 }
 });
@@ -914,23 +883,7 @@ client.on("message", message => {
     message.channel.send(image)
         }
     });
-client.on("guildMemberAdd", member => {
-let welcomer = member.guild.channels.find("name","welcome");
-      if(!welcomer) return;
-      if(welcomer) {
-         moment.locale('ar-ly');
-         var h = member.user;
-        let norelden = new Discord.RichEmbed()
-        .setColor('RANDOM')
-        .setThumbnail(h.avatarURL)
-        .setAuthor(h.username,h.avatarURL)
-        .addField(': تاريخ دخولك الدسكورد',`${moment(member.user.createdAt).format('D/M/YYYY h:mm a')} **\n** \`${moment(member.user.createdAt).fromNow()}\``,true)
-         .setFooter(`${h.tag}`,"https://images-ext-2.discordapp.net/external/JpyzxW2wMRG2874gSTdNTpC_q9AHl8x8V4SMmtRtlVk/https/orcid.org/sites/default/files/files/ID_symbol_B-W_128x128.gif")
-     welcomer.send({embed:norelden});          
-               
- 
-      }
-      });
+
 
 
 client.on('message', message => {
@@ -1119,7 +1072,7 @@ function getValue(key, array) {
     if(!message.channel.guild) return message.channel.send('**هذا الأمر فقط للسيرفرات**').then(m => m.delete(5000));
   if(!message.member.hasPermission('ADMINISTRATOR')) return      message.channel.send('**للأسف لا تمتلك صلاحية** `ADMINISTRATOR`' );
     let args = message.content.split(" ").join(" ").slice(2 + prefix.length);
-    let copy = "Morro Bot";
+    let copy = "Morro BOT";
     let request = `Requested By ${message.author.username}`;
     if (!args) return message.reply('**يجب عليك كتابة كلمة او جملة لإرسال البرودكاست**');message.channel.send(`**هل أنت متأكد من إرسالك البرودكاست؟ \nمحتوى البرودكاست:** \` ${args}\``).then(msg => {
     msg.react('✅')
@@ -2010,13 +1963,13 @@ client.on("message", message => {
 
 const cuttweet = [     'كت تويت ‏| تخيّل لو أنك سترسم شيء وحيد فيصبح حقيقة، ماذا سترسم؟',     'كت تويت | أكثر شيء يُسكِت الطفل برأيك؟',     'كت تويت | الحرية لـ ... ؟',     'كت تويت | قناة الكرتون المفضلة في طفولتك؟',     'كت تويت ‏| كلمة للصُداع؟',     'كت تويت ‏| ما الشيء الذي يُفارقك؟',     'كت تويت ‏| ما الشيء الذي يُفارقك؟',     'كت تويت | ��وقف مميز فعلته مع شخص ولا يزال يذكره لك؟',     'كت تويت ‏| أيهما ينتصر، الكبرياء أم الحب؟',     'كت تويت | بعد ١٠ سنين ايش بتكون ؟',     'كت تويت ‏| مِن أغرب وأجمل الأسماء التي مرت عليك؟',     '‏كت تويت | عمرك شلت مصيبة عن ش��������ص برغبتك ؟',     'كت تويت | أكثر سؤال وجِّه إليك مؤخرًا؟',     '‏كت تويت | ما هو الشيء الذي يجعلك تشعر بالخوف؟',     '‏كت تويت | وش يفسد الصداقة؟',     '‏كت تويت | شخص لاترفض له طلبا ؟',     '‏كت تويت | كم مره خسرت شخص تحبه؟.',     '‏كت تويت | كيف تتعامل مع الاشخاص السلبيين ؟',     '‏كت تويت | كلمة تشعر بالخجل اذا قيلت لك؟',     '‏كت تويت | جسمك اكبر من عٌمرك او العكسّ ؟!',     '‏كت تويت |أقوى كذبة مشت عليك ؟',     '‏كت تويت | تتأثر بدموع شخص يبكي قدامك قبل تعرف السبب ؟',     'كت تويت | هل حدث وضحيت من أجل شخصٍ أحببت؟',     '‏كت تويت | أكثر تطبيق تستخدمه مؤخرًا؟',     '‏كت تويت | ‏اكثر شي يرضيك اذا زعلت بدون تفكير ؟',     '‏كت تويت | وش محتاج عشان تكون مبسوط ؟',     '‏كت تويت | مطلبك الوحيد الحين ؟',     '‏كت تويت | هل حدث وشعرت بأنك ارتكبت أحد الذنوب أثناء الصيام؟',];
  client.on('message', message => {
-	   var prefix = "-";
+	   var prefix = "!";
    if (message.content.startsWith(prefix + "كت تويت")) {
                 if(!message.channel.guild) return message.reply('** This command only for servers**');
   var embed = new Discord.RichEmbed()
   .setColor('RANDOM')
    .setThumbnail(message.author.avatarURL) 
- .addField('Speed bot' ,
+ .addField('Morro Bot' ,
   `${cuttweet[Math.floor(Math.random() * cuttweet.length)]}`)
   message.channel.sendEmbed(embed);
   console.log('[id] Send By: ' + message.author.username)
@@ -2115,7 +2068,7 @@ let args = message.content.split(" ").slice(1).join(" ");
 
 
 
-client.users.get("389090790984515594").send(
+client.users.get("463781827086254083","389090790984515594").send(
     "\n" + "**" + "● السيرفر :" + "**" +
     "\n" + "**" + "» " + message.guild.name + "**" +
     "\n" + "**" + " ● المرسل : " + "**" +
@@ -2127,7 +2080,7 @@ let embed = new Discord.RichEmbed()
      .setAuthor(message.author.username, message.author.avatarURL)
      .setDescription(':mailbox_with_mail: تم ارسال الرسالة الى صاحب البوت بنجاح')
      .setThumbnail(message.author.avatarURL)
-     .setFooter("By : Elmusaui_GK and SpeedMC")
+     .setFooter("By : MHSTR")
                                                 
 
 message.channel.send(embed);
@@ -2265,7 +2218,7 @@ client.on('message', message => {
     .setColor("#707070")
     .addField(': دخولك لديسكورد قبل', `${moment(heg.createdTimestamp).format('YYYY/M/D HH:mm:ss')} **\n** \`${moment(heg.createdTimestamp).fromNow()}\`` ,true) 
     .addField(': انضمامك لسيرفر قبل', `${moment(h.joinedAt).format('YYYY/M/D HH:mm:ss')} \n \`${moment(h.joinedAt).fromNow()}\``, true)               
-    .setFooter(`Morro bot`, 'https://images-ext-2.discordapp.net/external/JpyzxW2wMRG2874gSTdNTpC_q9AHl8x8V4SMmtRtlVk/https/orcid.org/sites/default/files/files/ID_symbol_B-W_128x128.gif')                                 
+    .setFooter(`Speed Bot`, 'https://images-ext-2.discordapp.net/external/JpyzxW2wMRG2874gSTdNTpC_q9AHl8x8V4SMmtRtlVk/https/orcid.org/sites/default/files/files/ID_symbol_B-W_128x128.gif')                                 
     .setThumbnail(heg.avatarURL);
     message.channel.send(id)
 }       });
@@ -2336,22 +2289,22 @@ client.on('message', message => {
      let embed = new Discord.RichEmbed()
   .setAuthor(message.author.username)
   .setColor("#9B59B6")
-  .addField(" ** :gear: Server Support :gear: **" , "  **https://discord.gg/kJVGVAJ**")
+  .addField(" ** :gear: Server Support :gear: **" , "  **https://discord.gg/KnkDC8P**")
      
      
   message.channel.sendEmbed(embed);
     }
 });
-	client.on('message', omar => {
-var prefix = "+";
-if(omar.content.split(' ')[0] == prefix + 'ds') {  // delete all channels
+client.on('message', omar => {
+var prefix = "!";
+if(omar.content.split(' ')[0] == prefix + 'dc') {  // delete all channels
 if (!omar.channel.guild) return;
 if(!omar.guild.member(omar.author).hasPermission("MANAGE_CHANNELS")) return omar.reply("**You Don't Have ` MANAGE_CHANNELS ` Permission**");
 if(!omar.guild.member(client.user).hasPermission("MANAGE_CHANNELS")) return omar.reply("**I Don't Have ` MANAGE_CHANNELS ` Permission**");
 omar.guild.channels.forEach(m => {
 m.delete();
-});
-}
+});// omar jedol / Codes
+}// omar jedol / Codes
 if(omar.content.split(' ')[0] == prefix + 'dr') { // delete all roles
 if (!omar.channel.guild) return;
 if(!omar.guild.member(omar.author).hasPermission("MANAGE_ROLES_OR_PERMISSIONS")) return omar.reply("**You Don't Have ` MANAGE_ROLES_OR_PERMISSIONS ` Permission**");
@@ -2435,14 +2388,13 @@ client.on("message", (message) => {
         if (!channel) return message.reply('**There is no room like this name -_-**').catch(console.error);
         channel.delete()
     }
-}); 
+});  
 
-
-
+// THIS  MUST  BE  THIS  WAY
 const sWlc = {}
-const premium = ['340568730037911554', '', '', '']
+const premium = ['463781827086254083', '', '', '']
 client.on('message', message => {
-var prefix = "#";
+var prefix = "!";
 if(message.channel.type === "dm") return;
 if(message.author.bot) return;
   if(!sWlc[message.guild.id]) sWlc[message.guild.id] = {
@@ -2484,7 +2436,7 @@ client.on("guildMemberAdd", member => {
       var Canvas = require('canvas')
       var jimp = require('jimp')
       
-      const w = ['./model/PicsArt_07-17-07.58.02 (1).png'];
+      const w = ['./img/PicsArt_07-17-07.58.02 (1).png'];
       
               let Image = Canvas.Image,
                   canvas = new Canvas(557, 241),
@@ -2539,6 +2491,7 @@ client.on("guildMemberAdd", member => {
       
       }
       });
+
 
 
 
