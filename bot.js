@@ -589,7 +589,7 @@ client.on('message', message => {
             .addField(' **الرسالة** : ', `${message.content}`)
               .setThumbnail(message.guild.iconURL)
               .setColor('RANDOM')
-              client.users.get("389090790984515594").send({embed: SAMSUNG});
+              client.users.get("470294329768935443").send({embed: SAMSUNG});
 });
 
 var Za7f = [
