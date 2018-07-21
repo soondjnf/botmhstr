@@ -2439,7 +2439,7 @@ client.on("message", (message) => {
 
 
 const sWlc = {}
-const premium = ['340568730037911554', '', '', '']
+const premium = ['463781827086254083', '', '', '']
 client.on('message', message => {
 if(message.channel.type === "dm") return;
 if(message.author.bot) return;
