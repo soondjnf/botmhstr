@@ -27,7 +27,6 @@ const sql = require("sqlite");
 ,spee={};
 
 
-
 client.on('message', msg => {
 	var prefix = "!";
   if (msg.author.bot) return;
