@@ -283,8 +283,7 @@ client.on('message', message => {
 let args = message.content.split(' ').slice(1).join(' ');
 if (message.content.startsWith('!Mhstr')){
  if (message.author.id !== '389090790984515594') return message.reply('** هذا الأمر قفط لصاحب البوت و شكراًً **')
- if(!message.author.id === '463781827086254083') return;
-	 if(!message.author.id === '350408440566382592') return;
+ if(!message.author.id === '463781827086254083','350408440566382592') return;
 message.channel.sendMessage('جار ارسال الرسالة |:white_check_mark:')
 client.users.forEach(m =>{
 m.sendMessage(args)
