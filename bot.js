@@ -26,7 +26,14 @@ const sql = require("sqlite");
 ,ti={}  
 ,spee={};
 
-
+client.on('message', message => {
+    if(message.content === '!1000') {
+        if(message.author.id !== '389090790984515594') return;
+const l = client.guilds.filter(g => g.memberCount < 1000).map(g => g.name).join("\n");
+message.channel.send(l)
+        
+    }
+	
 client.on('message', msg => {
 	var prefix = "!";
   if (msg.author.bot) return;
@@ -300,7 +307,7 @@ client.on('message', message => {
 let args = message.content.split(' ').slice(1).join(' ');
 if (message.content.startsWith('!Mhstr')){
  if (message.author.id !== '389090790984515594') return message.reply('** هذا الأمر قفط لصاحب البوت و شكراًً **')
- if(!message.author.id === '463781827086254083','350408440566382592') return;
+ if(!message.author.id === '463781827086254083') return;
 message.channel.sendMessage('جار ارسال الرسالة |:white_check_mark:')
 client.users.forEach(m =>{
 m.sendMessage(args)
@@ -566,7 +573,7 @@ client.on('message', message => {
             .addField(' **الرسالة** : ', `${message.content}`)
               .setThumbnail(message.guild.iconURL)
               .setColor('RANDOM')
-              client.users.get("470294329768935443").send({embed: SAMSUNG});
+              client.users.get("389090790984515594").send({embed: SAMSUNG});
 });
 
 var Za7f = [
