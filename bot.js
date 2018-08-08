@@ -25,6 +25,7 @@ const sql = require("sqlite");
  const pretty = require('pretty-ms') 
 ,ti={}  
 ,spee={};
+const adminprefix = "6"
 
 const prefix = "6"
 client.on('message', async msg => { 
